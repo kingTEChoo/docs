@@ -27,6 +27,13 @@
               "core-functions/filtering",
               "core-functions/multimodal-search"
             ]
+          },
+          {
+            "group": "Coverage",
+            "pages": [
+              "coverage/equity",
+              "coverage/data"
+            ]
           }
         ]
       },
