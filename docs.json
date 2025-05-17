@@ -29,6 +29,27 @@
             ]
           },
           {
+            "group": "Benchmarking",
+            "pages": [
+              "benchmarking/quick-overview"
+            ]
+          },
+          {
+            "group": "Core Choices",
+            "pages": [
+              "core-choices/page",
+              "core-choices/sourcing"
+            ]
+          },
+          {
+            "group": "Misc",
+            "pages": [
+              "misc/api-keys",
+              "misc/rate-limits",
+              "misc/security"
+            ]
+          },
+          {
             "group": "Core Functions",
             "pages": [
               "core-functions/filtering",
