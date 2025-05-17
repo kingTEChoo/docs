@@ -22,17 +22,17 @@
             ]
           },
           {
-            "group": "Core Functions",
-            "pages": [
-              "core-functions/filtering",
-              "core-functions/multimodal-search"
-            ]
-          },
-          {
             "group": "Coverage",
             "pages": [
               "coverage/equity",
               "coverage/data"
+            ]
+          },
+          {
+            "group": "Core Functions",
+            "pages": [
+              "core-functions/filtering",
+              "core-functions/multimodal-search"
             ]
           }
         ]
