@@ -1,0 +1,10 @@
+---
+title: "Reranking"
+description: "After the search results is returned, you can add our custom implementation of a reranker to improve the search performances"
+---
+
+**Key points:**
+
+- **When: **you typically want to use a reranker when the initial candidates considered is very large as such you need to post-filter the quries
+- **What: **we have a [xx] reranker that will allow the user to filter the results for better search performances
+- **How: **they need to specify use_reranker: True and then specify the rerank_k to give us the number that they want to come back.
