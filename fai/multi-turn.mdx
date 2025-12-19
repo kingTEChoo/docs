@@ -1,0 +1,49 @@
+---
+title: "Multi Turn Generations"
+description: "This is how you declare and interact with an agent that is defined to be multi-turn"
+---
+
+**File References**
+
+**Definition(s)**
+
+- Multi-turn: this means this agent is expecting where available, previous generation requests for the 'same task' at hand
+
+**Breakdown**
+
+The `Generation` class can have `multi_turn` boolean where if you configure it as `True`, that at any point, that function can be pulling previous generation context
+
+```python
+@declare.generation
+class <GenerationName>(Generation):
+	# ... other configs ...
+    multi_turn = True 
+```
+
+When running this locally
+
+```
+fai run gen <GenerationName> user_prompt="<user_prompt>" --env <local OR dev OR prod>
+```
+
+You will see on your terminal a `gen_thread_id` which is the association for the next query you would then run with `user_prompt="<new_user_prompt>" --thread <gen_thread_id>`
+
+This means the next generation will take the previous turn as context for the next turn which you can see happening (and check if it's happening) on `traces` column. Ctrl+F user-prompt.
+
+When you deploy the instance onto e.g. modal, you will be able to request for the resopnse of it live e.g.
+
+POST `{<wissen_api_url>}/gen/<GenerationName>/`
+
+```json
+{
+    "input_data": {
+        "user_prompt": "<user_prompt>"
+        },
+    "gen_thread_id": "<gen_thread_id>",
+    "env": "<dev OR prod>"
+}
+```
+
+Side thought
+
+- this probably handles for multi-turn llm interactions

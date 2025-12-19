@@ -2,6 +2,12 @@
 title: "Models, Model Configurations, and Providers"
 ---
 
+**File Reference**
+
+`fai/src/fai/gateaway.py`
+
+`fai/src/fai/config.py`
+
 **Definitions**
 
 - Model: the LLM e.g. gpt_5_2, etc.
@@ -35,11 +41,9 @@ class <GenerationName>(Generation):
 
 <u>[i don't think:</u>
 
-- <u>thinking_budget is consistent across all providers</u>
-- <u>we should have some ability to pre_fill tokens - to do more research</u>
-- <u>we need to test if extra_headers work. there needs to be more explanatinos into the inputs and why.</u>
-
-  <u>]</u>
+- thinking_budget is consistent across all providers
+- we should have some ability to pre_fill tokens - to do more research
+- we need to test if extra_headers work. there needs to be more explanatinos into the inputs and why.]
 
 You would first declare the model and the associated provider of the model that you want to be utilised in `declare.py` e.g.
 
@@ -193,3 +197,11 @@ Nuances
 - `max_tokens` depedns on the model-to-model i.e. what is the input/output token limit for that given model
 - `thinking_budget` depends if it is a thinking model or not (NOTE THIS NEEDS TO BE REMOVED OR CHANGED)
 - `extra_headers`: this is used to handle for when the model provider has specific 'features' that can be toggled on e.g. for claude 4-5 opus / sonnet, you can turn on the 1m context window handling via`context-1m-2025-08-07`
+
+unstructured dump
+
+- **making a list of providers: **we should have a list of providers and a list of models where
+  - providers: these will include who the provider is, what models are in there (hyperlinked to the model page), and also the current 'set-up' / payment structures
+  - models: these should include a specification of the models, any specific configurations, input/output tokens limits, (backlink to providers available), throughputs, and any usage notes
+  - this way when we want to think about using models/providers, and we want to use llms to set it up for us, it's super easy.
+- we should also have how to add new providers that isn't in pydantic-ai (unclear if we push to the oss repo or make the custom integration...)

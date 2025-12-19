@@ -1,0 +1,35 @@
+---
+title: "E2E LLM-Driven Tests & Fixes"
+---
+
+adding devleopment as well
+
+[concept] probably raises the priority of this so that i can let it cook for longer rather than
+
+Whenever LLMs runs a release. The LLM is able to then:
+
+check if the gh workflows if successful
+
+if successful then, it'll download the package via
+
+`uv pip install "git+ssh://git@github.com/wissenai/fai.git[all]"`
+
+Then it'll run fai create `testing-instance`
+
+run the tests to make sure things are working as expected
+
+if everything passes and as expected
+
+it'll then run `fai delete testing-instance`
+
+this way we achieve as close to agent autonomy. there is probably places in the workflow where it needs to have tools to read logs e.g.
+
+- d1/r2 (database/blob storage)
+- logfire (observability), reading
+- modal (runtime engine)
+
+---
+
+- we probably also want to add the full template of things that we want to test which is a function of the given instantiation
+- human still needs to understand what is happening
+- we still manual testing in any instance to ensure any new behaviours works. we cannot vibe code this in.

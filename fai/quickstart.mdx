@@ -37,7 +37,7 @@ This will create a `/<instance-name>` folder and also set-up your cloudflare D1 
 Later, `<storage_provider>` can be set-up to be more flexible i.e. at initialisation, we add more flexibilities around this\
 `fai create <instance-name> --storage <storage_provider>`
 
-<u>[IDEA: ADD TEMPLATES TO MAKE SET-UP EASIER] </u>`<templates>`
+<u>[IDEA: ADD TEMPLATES TO MAKE SET-UP EASIER] </u>`--template <templates>`
 
 ### Running & Storing
 
@@ -67,6 +67,8 @@ Running a generation flow
 ### Declaring
 
 **<u>[TO ADD - CONSIDER IF IT SHOULD BE SEPERATE]</u>**
+
+there should just be a note on what the changes are to the current code (i.e. make sure it's dependent) so that it's super clear
 
 ### Testing
 
@@ -119,7 +121,7 @@ You would then also need to redeploy the instance\
 `fai deploy <instance-name> --runtime modal -m "<deployment_message>"`
 
 <u>[TO BE ADDED SOON]</u>\
-If you wanted to upgrade the current version to be compatible with the latest version of the package (incase schema changes etc.)\
+If you wanted to upgrade the current version to be compatible with the latest version of the package (incase schema changes etc.). This should include any details about the upgrade and what is expected to happen. Some ways of systematically handling that would be helpful.\
 `fai upgrade <instance-name>`
 
 ### Deleting
@@ -134,6 +136,12 @@ Note: you will need to confirm `<instance-name>`
 Other misc actions
 
 - Observing
+  - this ideally should actually be logically seperated so that it's easy to create diagnosis loops e.g. read [declare.py](http://declare.py) and then i.e. check on logfire -\> \<instance-name\> -\> \<gen_type\> and you'll be able to see what the problems were
+  - we should also add better tagging etc. so that it's easy for query when we need it at some point 
+  - set-up dashboards as well where possible so that we can monitor things from the get go
 - Declaring
 - Reading
 - Testing
+- List e.g. fai list templates - something like that where we can easily store things that are helpful in terms of data for when building.
+- Downloading Specific Version
+  - If wanted to use a specific version
