@@ -155,7 +155,7 @@ declare = FAIInstance(
 )
 ```
 
-Once these are avaialble, you need to ensure that in your environment that you have either exported the necessary envs (see [quickstart](/fai/quickstart)) or added `.env` to your `/<instance-name.`The API keys you require depends on the providers e.g. if `provider=google`, then you'll need `GOOGLE_API_KEY`
+Once these are avaialble, you need to ensure that in your environment that you have either exported the necessary envs (see [quickstart](/fai/quickstart)) or added `.env` to your `/<instance-name.`The API keys you require depends on the providers e.g. if `provider=google`, then you'll need `GOOGLE_API_KEY` . Note: this isn't necessary once it is deployed on modal, we have shared secrets as such the same keys will be made availalbe to any given generation.
 
 Once you have them available, add the model
 
