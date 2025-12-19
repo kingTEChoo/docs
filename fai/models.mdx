@@ -1,0 +1,179 @@
+---
+title: "Models, Model Configurations, and Providers"
+---
+
+**Definitions**
+
+- Model: the LLM e.g. gpt_5_2, etc.
+- Provider: the inference provider e.g. Google, Azure, AWS, Groq, etc.
+- Model Configurations: the sets of configurations offered by the model provider
+
+**Explanations**
+
+In `declare.py` part of one of the choices is to specify the model we're using, the configurations and the inference provider that is hosted the model.
+
+```python
+@declare.generation
+class <GenerationName>(Generation):
+	# ... other configs ...
+    model = "<model_name_and_provider_alias>"
+    model_config = ModelConfig(
+        max_tokens=20000,
+        temperature=0.1,
+	    max_tokens = 16000
+	    temperature = 0.1
+	    thinking_budget = None
+	    top_p = None
+	    timeout = 300
+	    seed = None
+	    stop_sequences = None
+	    extra_headers = None
+	    extra_body = None
+    )
+	# ... other configs ...
+```
+
+<u>[i don't think thinking_budget is consistent across all providers AND we should have some ability to pre_fill tokens - to do more research AND we need to test if extra_headers work. there needs to be more explanatinos into the inputs and why.]</u>
+
+You would first declare the model and the associated provider of the model that you want to be utilised in `declare.py` e.g.
+
+```python expandable
+gateway = ModelGateway(
+    models=[
+        # === Anthropic Models ===
+        ModelGateway.model(
+            name="claude-sonnet-4-5-20250929-anthropic",
+            model_name="claude-sonnet-4-5-20250929",
+            provider="anthropic",
+        ),
+        ModelGateway.model(
+            name="claude_opus",
+            model_name="claude-opus-4-5-20251101",
+            provider="anthropic",
+        ),
+        ModelGateway.model(
+            name="claude_haiku",
+            model_name="claude-haiku-4-5-20251001",
+            provider="anthropic",
+        ),
+        # === OpenAI Models ===
+        ModelGateway.model(
+            name="gpt52",
+            model_name="gpt-5.2",
+            provider="openai",
+        ),
+        ModelGateway.model(
+            name="gpt52_pro",
+            model_name="gpt-5.2-pro",
+            provider="openai",
+        ),
+        ModelGateway.model(
+            name="gpt5_mini",
+            model_name="gpt-5-mini",
+            provider="openai",
+        ),
+        ModelGateway.model(
+            name="gpt5_nano",
+            model_name="gpt-5-nano",
+            provider="openai",
+        ),
+        ModelGateway.model(
+            name="gpt4o",
+            model_name="gpt-4o",
+            provider="openai",
+        ),
+        ModelGateway.model(
+            name="gpt4o_mini",
+            model_name="gpt-4o-mini",
+            provider="openai",
+        ),
+        # === xAI/Grok Models ===
+        ModelGateway.model(
+            name="grok41_reasoning",
+            model_name="grok-4-1-fast-reasoning",
+            provider="xai",
+        ),
+        ModelGateway.model(
+            name="grok41",
+            model_name="grok-4-1-fast-non-reasoning",
+            provider="xai",
+        ),
+        ModelGateway.model(
+            name="grok4_reasoning",
+            model_name="grok-4-fast-reasoning",
+            provider="xai",
+        ),
+        ModelGateway.model(
+            name="grok4",
+            model_name="grok-4-fast-non-reasoning",
+            provider="xai",
+        ),
+        ModelGateway.model(
+            name="grok3",
+            model_name="grok-3",
+            provider="xai",
+        ),
+        ModelGateway.model(
+            name="grok3_mini",
+            model_name="grok-3-mini",
+            provider="xai",
+        ),
+        # === Google Gemini Models ===
+        ModelGateway.model(
+            name="gemini3_pro",
+            model_name="gemini-3-pro-preview",
+            provider="google",
+        ),
+        ModelGateway.model(
+            name="gemini3_flash",
+            model_name="gemini-3-flash-preview",
+            provider="google",
+        ),
+        ModelGateway.model(
+            name="gemini25_flash",
+            model_name="gemini-2.5-flash",
+            provider="google",
+        ),
+        ModelGateway.model(
+            name="gemini25_flash_lite",
+            model_name="gemini-2.5-flash-lite",
+            provider="google",
+        ),
+    ],
+)
+```
+
+Once these are avaialble, you need to ensure that in your environment that you have either exported the necessary envs (see [quickstart](/fai/quickstart)) or added `.env` to your `/<instance-name.`The API keys you require depends on the providers e.g. if `provider=google`, then you'll need `GOOGLE_API_KEY`
+
+Once you have them available, add the model
+
+```python
+@declare.generation
+class <GenerationName>(Generation):
+	# ... other configs ...
+    model = "gemini3_pro"
+    model_config = ModelConfig(
+        max_tokens=20000,
+        temperature=0.1,
+	    max_tokens = 16000
+	    temperature = 0.1
+	    thinking_budget = None
+	    top_p = None
+	    timeout = 300
+	    seed = None
+	    stop_sequences = None
+	    extra_headers = None
+	    extra_body = None
+    )
+	# ... other configs ...
+```
+
+Nuances
+
+- `provider`: primairly depends on whether [pydantic-ai supports it](https://ai.pydantic.dev/models/overview/) . There can the same models that are supported by multiple providers e.g. gpt models are typically supported by multiple cloud providers
+  - `name` is used to handle for this difference e.g. if you wanted to make availalbe `gpt_5_2` with `openai`, `google` and `azure`, then you can specify `name=gpt_5_2_openai` and `name=gpt_5_2_google` to make clear the model + provider you are using
+
+
+- `max_tokens` depedns on the model-to-model i.e. what is the input/output token limit for that given model
+- `thinking_budget` depends if it is a thinking model or not (NOTE THIS NEEDS TO BE REMOVED OR CHANGED)
+- `extra_headers`: this is used to handle for when the model provider has specific 'features' that can be toggled on e.g. for claude 4-5 opus / sonnet, you can turn on the 1m context window handling via`context-1m-2025-08-07`
