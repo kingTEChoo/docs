@@ -1,0 +1,93 @@
+---
+title: "Quickstart"
+description: "Start building awesome documentation in under 5 minutes"
+---
+
+
+### Starting
+
+Navigating to your a repo and/or create a new repo. Then set up your virtual environment and initialise it.
+
+`source .venv`
+
+`source venv/bin/activate`
+
+### Installing
+
+`uv pip install "git+ssh://git@github.com/wissenai/fai.git[all]"`
+
+You can check the releases [here](https://github.com/wissenai/fai) and use `fai --version` to see if it's updated with the latest
+
+### Creating
+
+You want to get the collection of `.env` variables locally first and then in the terminal run (this will make available keys you need e.g. `CLOUDFLARE_ACCESS_KEY` to create DB and allow for generations to run
+
+```
+set -a
+source .env
+set +a
+```
+
+This will create a `/<instance-name>` folder and also set-up your cloudflare D1 database and r2 blob storage\
+`fai create <instance-name> --storage cloudflare`
+
+Later, `<storage_provider>` can be set-up to be more flexible i.e. at initialisation, we add more flexibilities around this\
+`fai create <instance-name> --storage <storage_provider>`
+
+[IDEA: ADD TEMPLATES TO MAKE SET-UP EASIER] `<templates>`
+
+### Running
+
+Make sure you're inside the folder\
+`cd <instance-name>`
+
+You can then use the following command(s) to either store runs locally, in dev table or in prod table.
+
+To run locally and store locally
+
+`fai run gen <gen_type> <input_model> --env local`
+
+To run locally and store in `dev` table
+
+`fai run gen <gen_type> <input_model> --env dev`
+
+To run locally and store in `prod` table
+
+`fai run gen <gen_type> <input_model> --env prod`
+
+Running a generation flow
+
+`fai run flow <flow_name> <input_model> --env <local|dev|prod>`
+
+[NEDES A BETTER EXPLANATION]
+
+### Deploying
+
+`fai deploy <instance-name> --runtime modal -m "<deployment_message>"`
+
+### Upgrading
+
+To get the latest version of the fai package\
+`uv pip install "git+ssh://git@github.com/wissenai/fai.git[all]"`
+
+You would then also need to redeploy the instance\
+`fai deploy <instance-name> --runtime modal -m "<deployment_message>"`
+
+<u>[TO BE ADDED SOON]</u>\
+If you wanted to upgrade the current version to be compatible with the latest version of the package (incase schema changes etc.)\
+`fai upgrade <instance-name>`
+
+### Deleting
+
+<u>[TO BE ADDED SOON]</u>\
+If you wanted to delete the entire project (databases, live runtime and overall project)\
+`fai delete <instance-name>`\
+Note: you will need to confirm `<instance-name>`
+
+---
+
+Other misc actions
+
+- Observing
+- Declaring
+- Reading
