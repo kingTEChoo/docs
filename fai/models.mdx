@@ -143,6 +143,18 @@ gateway = ModelGateway(
 )
 ```
 
+Then you would make sure it is declared in the `FAIInstance`
+
+```python
+declare = FAIInstance(
+    name="test-6",
+    storage="cloudflare://",
+    cloudflare=cloudflare,
+    model_gateway=gateway,
+    notify_emails=[],
+)
+```
+
 Once these are avaialble, you need to ensure that in your environment that you have either exported the necessary envs (see [quickstart](/fai/quickstart)) or added `.env` to your `/<instance-name.`The API keys you require depends on the providers e.g. if `provider=google`, then you'll need `GOOGLE_API_KEY`
 
 Once you have them available, add the model
@@ -172,8 +184,6 @@ Nuances
 
 - `provider`: primairly depends on whether [pydantic-ai supports it](https://ai.pydantic.dev/models/overview/) . There can the same models that are supported by multiple providers e.g. gpt models are typically supported by multiple cloud providers
   - `name` is used to handle for this difference e.g. if you wanted to make availalbe `gpt_5_2` with `openai`, `google` and `azure`, then you can specify `name=gpt_5_2_openai` and `name=gpt_5_2_google` to make clear the model + provider you are using
-
-
 - `max_tokens` depedns on the model-to-model i.e. what is the input/output token limit for that given model
 - `thinking_budget` depends if it is a thinking model or not (NOTE THIS NEEDS TO BE REMOVED OR CHANGED)
 - `extra_headers`: this is used to handle for when the model provider has specific 'features' that can be toggled on e.g. for claude 4-5 opus / sonnet, you can turn on the 1m context window handling via`context-1m-2025-08-07`
