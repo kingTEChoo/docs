@@ -1,0 +1,67 @@
+---
+title: "Schema - Generations"
+description: "Each time we declare a new generation, it will follow the same payload as per below."
+---
+
+`gen_id`: the unique identifier for that given generation e.g.
+
+```
+5ac5d0a2-333e-4b5d-8673-9e96eceec706
+```
+
+`gen_type`: the type of generation
+
+```
+revenue_analysis
+```
+
+`gen_category` : the group of generations this generation sits within e.g.
+
+```
+company_initiation
+```
+
+`created_at` : when this generation was created e.g.
+
+```
+2025-12-18T21:45:19.434305
+```
+
+`status` : whether this generation suceeded or failed e.g.
+
+```
+success
+```
+
+`targets`: the input(s) of the generation (note: this depends on the `input_model` that is declared in `declare.py`) e.g.
+
+```
+NVDA
+```
+
+[to add more examples]
+
+`configs`: the configurations for this given generation
+
+```
+{"model": "claude_sonnet", "model_config": {"max_tokens": 20000, "temperature": 0.3, "timeout": 300}, "max_turns": 5, "retries": 5, "create_pdf": false, "tools": ["read", "explore", "fetch"], "evals": ["thoroughness"], "system_prompt_ref": "prompts/general_analysis.md", "input_model": "Query", "output_model": "str", "model_name": "claude-sonnet-4-5-20250929", "provider": "anthropic"}
+outputs: the output of the generation (note: this depends on the output_modelthat is declared in declare.py) e.g. {"final_result": "# NVIDIA Corpor...", "output_stats": {"total_time": 22.05, "total_tokens": 7650, "request_tokens": 6846, "response_tokens": 804}}
+```
+
+`citations` : the citations that are referred to in `outputs`
+
+```
+[{"tool_name": "fetch_overview", "tool_id": "923549", "index": "1", "data": {"ticker": "NVDA", "name": "NVDA Inc.", "market_cap": 1000000000, "employees": 10000, "description": "Company description for NVDA"}}, {"tool_name": "fetch_price_performance", "tool_id": "6692c1", "index": "1", "data": {"current_price": 150.0, "comparisons": {"1D": 0.5, "5D": 1.2, "1M": 3.5, "6M": 10.2, "YTD": 15.0, "1Y": 25.0}}}, {"tool_name": "read_document", "tool_id": "31ab05", "index": "1", "data": {"excerpt": "Relevant excerpt for query: business overview, business segments, products and services, competitive advantages, markets served, revenue breakdown", "file_url": "https://example.com/docs/NVDA/10k.pdf", "file_type": null, "file_name": "10k.pdf"}}, {"tool_name": "explore_documents", "tool_id": "cf148e", "index": "1", "data": [{"file_url": "https://example.com/docs/NVDA/10k.pdf", "event_date": "2024-01-15", "event_title": "NVDA Annual Report 2023", "fiscal_year": "2023", "fiscal_period": "FY", "document_type_name": "10-K", "document_type_category": "Annual Report"}]}]
+```
+
+`traces`: the full traces for that given geneneration (including system prompts etc.) e.g.
+
+````
+[{"parts": [{"content": "# General Analysis\n\n<todays_date>\nTODAY'S DATE IS {{ date }}\n</todays_date>\n\nYou are a senior equity analyst. Your task is to analyze the user's query thoroughly, providing well-researched insights with relevant data, context, and actionable conclusions.\n\n## Instructions\n\n1. Use the available tools to gather information\n2. Analyze the data thoroughly\n3. Provide a comprehensive analysis\n\n## Citation Format\n\nAlways cite your sources using:\n```\n<cite tool_id=\"...\" index=\"...\"/>\n```\n\n## Output Format\n\nProvide your analysis in clear, structured markdown.\n", "timestamp": "2025-12-18T21:45:20.510017Z", "dynamic_ref": null, "part_kind": "system-prompt"}, {"content": "Query: Give me a business overview of NVDA\nAs Of: None", "timestamp": "2025-12-18T21:45:20.510021Z", "part_kind": "user-prompt"}], "instructions": null, "kind": "request", "run_id": "84df08f4-3c36-4fcc-8b02-4d2ef4ce3e5e", "metadata": null}, {"parts": [{"content": "I'll fetch a business overview of NVIDIA (NVDA) for you.", "id": null, "provider_details": null, "part_kind": "text"}, {"tool_name": "fetch_impl", "args": {"ticker": "NVDA", "what": "overview"}, "tool_call_id": "toolu_015t2PapFcHyTgv9a6SkVPdt", "id": null, "provider_details": null, "part_kind": "tool-call"}], "usage": {"input_tokens": 1277, "cache_write_tokens": 0, "cache_read_tokens": 0, "output_tokens": 90, "input_audio_tokens": 0, "cache_audio_read_tokens": 0, "output_audio_tokens": 0, "details": {"cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "input_tokens": 1277, "output_tokens": 90}}, "model_name": "claude-sonnet-4-5-20250929", "timestamp": "2025-12-18T21:45:22.580333Z", "kind": "response", "provider_name": "anthropic", "provider_url": "https://api.anthropic.com", "provider_details": {"finish_reason": "tool_use"}, "provider_response_id": "msg_01WB5L7vp7cAgPWqtoD9tjs8", "finish_reason": "tool_call", "run_id": "84df08f4-3c36-4fcc-8b02-4d2ef4ce3e5e", "metadata": null}, {"parts": [{"tool_name": "fetch_impl", "content": {"tool_name": "fetch_overview", "tool_id": "923549", "ticker": "NVDA", "results": {"ticker": "NVDA", "name": "NVDA Inc.", "market_cap": 1000000000, "employees": 10000, "description": "Company description for NVDA"}, "reminders": "High-level company info including market cap, employees, address."}, "tool_call_id": "toolu_015t2PapFcHyTgv9a6SkVPdt", "metadata": null, "timestamp": "2025-12-18T21:45:23.556904Z", "part_kind": "tool-return"}], "instructions": null, "kind": "request", "run_id": "84df08f4-3c36-4fcc-8b02-4d2ef4ce3e5e", "metadata": null}, {"parts": [{"content": "Let me also gather more detailed information by exploring recent filings and checking current price performance.", "id": null, "provider_details": null, "part_kind": "text"}, {"tool_name": "explore_impl", "args": {"ticker": "NVDA", "source": "documents", "limit": 10}, "tool_call_id": "toolu_019TKnXwfrYw9GM8PCjbCYec", "id": null, "provider_details": null, "part_kind": "tool-call"}, {"tool_name": "fetch_impl", "args": {"ticker": "NVDA", "what": "price_performance"}, "tool_call_id": "toolu_019xeQKmRjU48qLGRYSWVWcE", "id": null, "provider_details": null, "part_kind": "tool-call"}], "usage": {"input_tokens": 1458, "cache_write_tokens": 0, "cache_read_tokens": 0, "output_tokens": 165, "input_audio_tokens": 0, "cache_audio_read_tokens": 0, "output_audio_tokens": 0, "details": {"cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "input_tokens": 1458, "output_tokens": 165}}, "model_name": "claude-sonnet-4-5-20250929", "timestamp": "2025-12-18T21:45:25.434568Z", "kind": "response", "provider_name": "anthropic", "provider_url": "https://api.anthropic.com", "provider_details": {"finish_reason": "tool_use"}, "provider_response_id": "msg_01CuJJPJNhPEyQk6auGmYhPN", "finish_reason": "tool_call", "run_id": "84df08f4-3c36-4fcc-8b02-4d2ef4ce3e5e", "metadata": null}, {"parts": [{"tool_name": "explore_impl", "content": {"tool_name": "explore_documents", "tool_id": "cf148e", "ticker": "NVDA", "results": [{"file_url": "https://example.com/docs/NVDA/10k.pdf", "event_date": "2024-01-15", "event_title": "NVDA Annual Report 2023", "fiscal_year": "2023", "fiscal_period": "FY", "document_type_name": "10-K", "document_type_category": "Annual Report"}], "reminders": "Review document types and dates to identify relevant filings."}, "tool_call_id": "toolu_019TKnXwfrYw9GM8PCjbCYec", "metadata": null, "timestamp": "2025-12-18T21:45:27.486641Z", "part_kind": "tool-return"}, {"tool_name": "fetch_impl", "content": {"tool_name": "fetch_price_performance", "tool_id": "6692c1", "ticker": "NVDA", "results": {"current_price": 150.0, "comparisons": {"1D": 0.5, "5D": 1.2, "1M": 3.5, "6M": 10.2, "YTD": 15.0, "1Y": 25.0}}, "reminders": "Price comparisons across 1D, 5D, 1M, 6M, YTD, 1Y, MAX periods."}, "tool_call_id": "toolu_019xeQKmRjU48qLGRYSWVWcE", "metadata": null, "timestamp": "2025-12-18T21:45:27.487494Z", "part_kind": "tool-return"}], "instructions": null, "kind": "request", "run_id": "84df08f4-3c36-4fcc-8b02-4d2ef4ce3e5e", "metadata": null}, {"parts": [{"content": "Now let me extract detailed business information from their most recent annual report.", "id": null, "provider_details": null, "part_kind": "text"}, {"tool_name": "read_impl", "args": {"file_url": "https://example.com/docs/NVDA/10k.pdf", "query": "business overview, business segments, products and services, competitive advantages, markets served, revenue breakdown", "source_type": "pdf"}, "tool_call_id": "toolu_01XisMTcbTxquUagDcgrhD2K", "id": null, "provider_details": null, "part_kind": "tool-call"}], "usage": {"input_tokens": 1926, "cache_write_tokens": 0, "cache_read_tokens": 0, "output_tokens": 138, "input_audio_tokens": 0, "cache_audio_read_tokens": 0, "output_audio_tokens": 0, "details": {"cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "input_tokens": 1926, "output_tokens": 138}}, "model_name": "claude-sonnet-4-5-20250929", "timestamp": "2025-12-18T21:45:29.399652Z", "kind": "response", "provider_name": "anthropic", "provider_url": "https://api.anthropic.com", "provider_details": {"finish_reason": "tool_use"}, "provider_response_id": "msg_01XXvaiNmzJbfTf5ZMxwEt5L", "finish_reason": "tool_call", "run_id": "84df08f4-3c36-4fcc-8b02-4d2ef4ce3e5e", "metadata": null}, {"parts": [{"tool_name": "read_impl", "content": {"tool_name": "read_document", "tool_id": "31ab05", "file_url": "https://example.com/docs/NVDA/10k.pdf", "results": {"file_name": "10k.pdf", "excerpts": [{"index": "1", "excerpt": "Relevant excerpt for query: business overview, business segments, products and services, competitive advantages, markets served, revenue breakdown", "page": 1}]}, "reminders": "Review excerpts carefully. Note tool_id and index for citations."}, "tool_call_id": "toolu_01XisMTcbTxquUagDcgrhD2K", "metadata": null, "timestamp": "2025-12-18T21:45:31.564205Z", "part_kind": "tool-return"}], "instructions": null, "kind": "request", "run_id": "84df08f4-3c36-4fcc-8b02-4d2ef4ce3e5e", "metadata": null}, {"parts": [{"content": "# NVIDIA Corporation (NVDA) - Business Overview\n\n## Company Profile\n\n**NVIDIA Inc.** is a leading technology company with a market capitalization of approximately **$1 billion** and employs around **10,000** people.<cite tool_id=\"923549\" index=\"1\"/>\n\n## Current Market Performance\n\nNVIDIA's stock is currently trading at **$150.00** per share, demonstrating strong momentum across multiple timeframes:<cite tool_id=\"6692c1\" index=\"1\"/>\n\n- **1 Day:** +0.5%\n- **5 Days:** +1.2%\n- **1 Month:** +3.5%\n- **6 Months:** +10.2%\n- **Year-to-Date:** +15.0%\n- **1 Year:** +25.0%\n\n## Business Operations\n\nBased on the company's most recent annual report (FY 2023), NVIDIA operates with a focus on:<cite tool_id=\"31ab05\" index=\"1\"/>\n\n- **Business segments** spanning multiple technology markets\n- **Products and services** portfolio serving various customer needs\n- **Competitive advantages** in their core markets\n- **Diversified revenue streams** across different business lines\n\n## Recent Filings\n\nThe most recent annual report (10-K) was filed on **January 15, 2024**, covering fiscal year 2023.<cite tool_id=\"cf148e\" index=\"1\"/>\n\n---\n\n**Note:** NVIDIA is widely recognized as a leader in graphics processing units (GPUs), artificial intelligence computing, and data center solutions. The company has experienced significant growth driven by demand for AI infrastructure, gaming technology, and professional visualization solutions. For more specific details about business segments, revenue breakdowns, or strategic initiatives, please let me know what aspects you'd like me to explore further from their filings.", "id": null, "provider_details": null, "part_kind": "text"}], "usage": {"input_tokens": 2185, "cache_write_tokens": 0, "cache_read_tokens": 0, "output_tokens": 411, "input_audio_tokens": 0, "cache_audio_read_tokens": 0, "output_audio_tokens": 0, "details": {"cache_creation_input_tokens": 0, "cache_read_input_tokens": 0, "input_tokens": 2185, "output_tokens": 411}}, "model_name": "claude-sonnet-4-5-20250929", "timestamp": "2025-12-18T21:45:33.773093Z", "kind": "response", "provider_name": "anthropic", "provider_url": "https://api.anthropic.com", "provider_details": {"finish_reason": "end_turn"}, "provider_response_id": "msg_01W1s3HvzCHVsSVDpVYXHDH9", "finish_reason": "stop", "run_id": "84df08f4-3c36-4fcc-8b02-4d2ef4ce3e5e", "metadata": null}]
+````
+
+`error`: the error message that is produced if `status` is `error`
+
+```
+[to add an example]
+```

@@ -3,14 +3,17 @@ title: "Quickstart"
 description: "Start building awesome documentation in under 5 minutes"
 ---
 
-
 ### Starting
 
 Navigating to your a repo and/or create a new repo. Then set up your virtual environment and initialise it.
 
-`source .venv`
+Create a virtual environment
 
-`source venv/bin/activate`
+`uv venv`
+
+Activate the virtual environment
+
+`source .venv/bin/activate`
 
 ### Installing
 
@@ -34,24 +37,24 @@ This will create a `/<instance-name>` folder and also set-up your cloudflare D1 
 Later, `<storage_provider>` can be set-up to be more flexible i.e. at initialisation, we add more flexibilities around this\
 `fai create <instance-name> --storage <storage_provider>`
 
-[IDEA: ADD TEMPLATES TO MAKE SET-UP EASIER] `<templates>`
+<u>[IDEA: ADD TEMPLATES TO MAKE SET-UP EASIER] </u>`<templates>`
 
-### Running
+### Running & Storing
 
 Make sure you're inside the folder\
 `cd <instance-name>`
 
 You can then use the following command(s) to either store runs locally, in dev table or in prod table.
 
-To run locally and store locally
+To run locally and store locally. (Note: this will be in your `/<instance-name>/data/fai.db` folder. (You should download the SQLite Viewer extension to view the table).
 
 `fai run gen <gen_type> <input_model> --env local`
 
-To run locally and store in `dev` table
+To run locally and store in `dev` table. (Note: this will be in the D1 Cloudflare Dashboard).
 
 `fai run gen <gen_type> <input_model> --env dev`
 
-To run locally and store in `prod` table
+To run locally and store in `prod` table. (Note: this will be in the D1 Cloudflare Dashboard).
 
 `fai run gen <gen_type> <input_model> --env prod`
 
@@ -59,11 +62,51 @@ Running a generation flow
 
 `fai run flow <flow_name> <input_model> --env <local|dev|prod>`
 
-[NEDES A BETTER EXPLANATION]
+### Declaring
+
+**<u>[TO ADD]</u>**
+
+### Testing
+
+Before deployment, you can run an automated test:\
+`fai test <instance-name>`
+
+```expandable
+> Testing FAI instance: my-research
+
+1. Loading declaration...
+   - Loaded declare.py
+   - Found FAIInstance: my-research ✅
+
+2. Validating evals...
+   - thoroughness ✅
+   - consistency ✅
+
+3. Validating generations...
+   - foundational_understanding ✅
+   - revenue_analysis ✅
+   - general_analysis ✅
+
+4. Validating flows...
+   - CompanyInitiation ✅ (steps: 5)
+
+5. Checking prompts...
+   - prompts/foundational_understanding.md ✅
+   - prompts/revenue_analysis.md ✅
+   - prompts/general_analysis.md ✅
+
+All Checks Passed ✅
+```
 
 ### Deploying
 
 `fai deploy <instance-name> --runtime modal -m "<deployment_message>"`
+
+You can think of `deployment_message` as like the git commit message.
+
+At a later date, `<runtime_engine>` can determined.
+
+`fai deploy <instance-name> --runtime <runtime_engine>`
 
 ### Upgrading
 
@@ -91,3 +134,4 @@ Other misc actions
 - Observing
 - Declaring
 - Reading
+- Testing

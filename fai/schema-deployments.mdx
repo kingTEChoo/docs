@@ -1,0 +1,62 @@
+---
+title: "Schema Deployments"
+description: "Each time we run fai deploy <instance-name> -m "<deployment_message, it will be stored "
+---
+
+`deployment_id`: this is the unique identifier for the deployment
+
+```
+1db5cd58-8447-4ea8-9d30-8b806d20b307
+```
+
+`instance_name`: this is the instance-name of the project
+
+```
+test-4
+```
+
+`env`: the deployment environment
+
+[this should either be removed or we have a way to actually deploy seperate endpoints]
+
+```
+dev
+```
+
+`git_commit`: this is the commit hash that the current deployment is on (useful for finding the state of the code when this deployment was made)
+
+```
+a858da6
+```
+
+`message`: this is the `<deployment_message>`that was created to commentate on changes
+
+```
+deployment to modal
+```
+
+`created_at`: this is when that specific deployment was created
+
+```
+2025-12-18T18:58:33.016302
+```
+
+`is_active`: this is whether the deployment is active or not on modal.
+
+[this should probably be removed - don't really see the purpose]
+
+```
+0
+```
+
+`metadata`: this is the metadata of the deployment e.g. file path and also deployment endpoint]
+
+[not 100% clear what is this helpful for]
+
+```
+{"path": "/Users/kingtongchoo/Desktop/coding/embed/test-4", "runtime": "modal", "endpoint_url": "https://wissen-ai--fai-test-4-api.modal.run"}
+```
+
+[others to add]
+
+- diffs: changes from one version to another (some script that will check what has changed / been added / removed)
