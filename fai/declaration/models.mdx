@@ -157,11 +157,9 @@ Then you would make sure it is declared in the `FAIInstance`
 
 ```python
 declare = FAIInstance(
-    name="test-6",
-    storage="cloudflare://",
-    cloudflare=cloudflare,
+	# ... other configs ...
     model_gateway=gateway,
-    notify_emails=[],
+	# ... other configs ...
 )
 ```
 
@@ -200,7 +198,7 @@ Nuances
 
 unstructured dump
 
-- **making a list of providers: **we should have a list of providers and a list of models where
+- \*\*making a list of providers: \*\*we should have a list of providers and a list of models where
   - providers: these will include who the provider is, what models are in there (hyperlinked to the model page), and also the current 'set-up' / payment structures
   - models: these should include a specification of the models, any specific configurations, input/output tokens limits, (backlink to providers available), throughputs, and any usage notes
   - this way when we want to think about using models/providers, and we want to use llms to set it up for us, it's super easy.

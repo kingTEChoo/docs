@@ -1,0 +1,26 @@
+---
+title: "Adding a New Provider"
+description: "This is a how-to-guide on adding new providers that ends up as tools for us to use in declaration-time"
+---
+
+Whenever we want to integrate a tool into our fai package, we need to run through the below process to ensure each tool is truly functional and well documented.
+
+#### Manually Read
+
+Find the API documentations and link to all the endpoints. Figure out if there is an SDK (where we can absorb the patterns) and if not all the API endpoints. For each API endpoint, have a rough note mentally or in notes for what data is available, how that is interfaced, and what is returned. This is important from a manual evaluation POV.
+
+You should also make sure that you have thought about the naming patterns for all the functions i.e. `<verb>_<target>_<object>` e.g. `list_company_ratios` vs `fetch_company_ratios` etc. and this should be used as part of the prompt that you give it.
+
+#### Assign to LLM
+
+**Navigate**
+
+Navigate to the `fai` repository where we should be adding inside a new folder:
+
+`fai/src/fai/tools/providers/<new_provider>`
+
+**Task**
+
+- What we want is to create functions for ALL that represents ALL the endpoints that we have access to.
+- This means for each endpoint, we should have a function that hits that endpoint with some associated input schema that is validated via `/<new_provider>/schema.py`
+- The end stage is that we are able to declare it as per in the [tools usage](/fai/tools/tools-usage)

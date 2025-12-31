@@ -1,0 +1,78 @@
+---
+title: "Tools "
+description: "How to think about tools and what you can declare"
+---
+
+Once of the declarations is the tools that the given generation has access to and there are a few different sets of tools. At the base level, we (generally), leverage providers for data & processing and each provider's method +  interface to data + breadth of data can be different.
+
+### Helpers
+
+What is helpful?
+
+- The interfaces helps for us to check functionally the endpoints are working
+- Make sure that it's obvious to us what a tool is for and how to use it i.e. it's well described (helps for making better tools for LLMs) i.e. 
+  - do i know:
+    - what this is for?
+    - how to use it?
+    - what do i expect to get?
+- Helps us see the payload of tools and whether there are some optimisations
+- Also helps us see duplications
+- Help with thinking around consolidations i.e. toolsets over raw provider based tools
+- In declarations i.e. you are giving these tools to the LLM to use
+
+### Standards
+
+#### Dump
+
+- In `PROVIDER.md` we should log all the lessons and nuances
+- In the input params, we should specify more heavily what is expected in there and if there are any tool dependencies i.e. if another tool is required to know what to use here
+
+#### Tool Outputs
+
+### Complexities
+
+#### LLMs cannot be given too many tools at once
+
+LLMs if give it \>20 tools will start getting confused
+
+#### Tool dependencies
+
+There are some tools that have dependencies on each other i.e. to be able to get the company_ratio from fiscal_ai, you need to have run list_ratios first. This is the same as you cannot read_pdf if you don't have a list of pdfs to be reading from.
+
+#### We still need to be the ones to wrap tools
+
+Regardless of whether providers give MCPs or not, we still need to re-wrap them because we need to be able to ensure citations.
+
+### Declaration Patterns
+
+#### Tools from providers
+
+A given `<provider>` (e.g. `fiscal_ai` ) can provide varying breadths of data and actions via different endpoints / sdk methods.
+
+To ensure that we don't create tech debt and also maximial downstream i.e. at the point of declaration, we ensure that every single function available via API is available as tools to utilise, with the full (mostly)-unmutated input payloads and unmutated output payloads.
+
+```python
+# declare.py
+from fai.tools.providers import <provider_1>, <provider_2>
+
+# ... FAIInstnace and other declarations ... 
+
+@declare.generation
+class <GenerationName>(Generation):
+	# ... other configurations ... 
+    tools = [
+        <provider_1>.<function_1>,
+        <provider_1>.<function_2>,
+        <provider_1>.<function_3>,
+        <provider_1>.<function_4>,
+        <provider_2>.<function_1>,
+        <provider_2>.<function_2>,
+        <provider_2>.<function_3>,
+        <provider_2>.<function_4>,
+    ]
+	# ... other configurations ... 
+```
+
+<Info>
+  This seperation is intentional to ensure that as we add more providers, we can more flexibly mutate the way we serve tools to LLMs having to 're-integrate' provider given tools. Also for us to ensure that consolidations (i.e. formalising tool patterns) is done with the consideration of the true set of tools. It also tries to enforce that we integrate once, and can choose to 'consolidate/re-wrap many times'
+</Info>

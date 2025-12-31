@@ -7,7 +7,7 @@ description: "This is how you declare and interact with an agent that is defined
 
 **Definition(s)**
 
-- Multi-turn: this means this agent is expecting where available, previous generation requests for the 'same task' at hand
+- Multi-turn: this means this agent is expecting where available, a history of previous requests for the 'same task' at hand
 
 **Breakdown**
 
@@ -20,7 +20,9 @@ class <GenerationName>(Generation):
     multi_turn = True 
 ```
 
-When running this locally
+In the first turn a new, `gen_thread_id`. You can see this as a new multi-turn conversation.
+
+And then when running this locally
 
 ```
 fai run gen <GenerationName> user_prompt="<user_prompt>" --env <local OR dev OR prod>
@@ -46,4 +48,4 @@ POST `{<wissen_api_url>}/gen/<GenerationName>/`
 
 Side thought
 
-- this probably handles for multi-turn llm interactions
+- this probably handles for multi-turn llm interactions. option question on whether all of them should 'always' be optionally previous, probably not?

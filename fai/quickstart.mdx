@@ -1,6 +1,6 @@
 ---
 title: "Quickstart"
-description: "Start building awesome documentation in under 5 minutes"
+description: "How to declare a financial research generation"
 ---
 
 ### Starting
@@ -30,6 +30,10 @@ set -a
 source .env
 set +a
 ```
+
+We use logfire as our observability platform and we set-up an observability per instance as such will likely need to run`logfire auth` in your terminal before running the creation of the project. This will ensure that you have a seperate project named `<instance-name>` for that given project.
+
+_Note: It'd be ideal if this was programmatic i.e. we can set this up as long as we have the right API keys, but don't think this is possible._
 
 This will create a `/<instance-name>` folder and also set-up your cloudflare D1 database and r2 blob storage\
 `fai create <instance-name> --storage cloudflare`
@@ -137,11 +141,19 @@ Other misc actions
 
 - Observing
   - this ideally should actually be logically seperated so that it's easy to create diagnosis loops e.g. read [declare.py](http://declare.py) and then i.e. check on logfire -\> \<instance-name\> -\> \<gen_type\> and you'll be able to see what the problems were
-  - we should also add better tagging etc. so that it's easy for query when we need it at some point 
+  - we should also add better tagging etc. so that it's easy for query when we need it at some point
   - set-up dashboards as well where possible so that we can monitor things from the get go
+  - we also want project-by-project alerts onto slack so that we can monitor if failure
 - Declaring
 - Reading
 - Testing
 - List e.g. fai list templates - something like that where we can easily store things that are helpful in terms of data for when building.
 - Downloading Specific Version
   - If wanted to use a specific version
+- Creating
+  - We essentially create seperate instances per project
+    - observability (logfire)
+    - databases (d1 + r2)
+    - runtime (modal)
+- Seeing
+  - gettitng a preview of runtime / observabiltiy / d1 databases

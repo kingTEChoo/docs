@@ -1,0 +1,58 @@
+---
+title: "Quartr"
+---
+
+**Resources**\
+https://quartr.dev/introduction
+
+**Potential Tools**
+
+- https://quartr.dev/datasets/events
+- https://quartr.dev/datasets/earnings-call-transcripts
+- https://quartr.dev/datasets/filings-and-reports
+- https://quartr.dev/datasets/slides
+
+`https://api.quartr.com/`
+
+**List slide decks**\
+Resources: [https://quartr.dev/api-reference/slides/list-slide-deck](https://quartr.dev/api-reference/slides/list-slide-decks)
+
+Endpoint:`/public/v3/documents/slides`
+
+Inputs
+
+- countries (string): Comma-separated list of country codes (ISO 3166-1 alpha-2)
+- exchanges (string): Exchange symbols, without blankspace, to filter by
+- tickers (string): Comma-separated list of company tickers
+- limit (string): The maximum number of items to return in a single request.
+- cursor (number): A unique identifier pointing to the starting position for the next set of results.
+- direction (enum\<asc | desc\>): The direction of the sort order (id field)
+- endDate (string): The end date (ISO 8601)
+- startDate (string): The start date (ISO 8601)
+- typeIds (string): Comma-separated list of type ids
+- isins (string): Comma-separated list of ISINs
+- companyIds (string): Comma-separated list of company IDs
+- eventIds (string): Comma-separated list of event IDs
+- documentGroupIds (string): 1: Earnings Release; 2: Press Release; 3: Interim Report; 4: Annual Report
+- updatedBefore: Query data that was updated before this date (ISO 8601)
+- updatedAfter: Query data that was updated after this date (ISO 8601)
+- expand (enum\<event\>): Comma-separated list of fields to expand
+
+**Outputs**
+
+- fileUrl (string): url for the file
+- id: unique idenit
+- typeId
+- updatedAt
+- createdAt
+- companyId
+- eventId
+- event
+  - title
+  - typeId
+  - fiscalYear
+  - fiscalPeriod
+  - language
+  - date
+- pagination
+  - nextCursor

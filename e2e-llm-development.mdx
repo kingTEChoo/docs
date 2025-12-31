@@ -1,0 +1,47 @@
+---
+title: "E2E LLM Development"
+description: "This is the process by which the LLM will run to essentially ensure each realise is as functional as the current model capabilities allow overall reducing requirements for human inputs in execution time."
+---
+
+Prepare the release
+
+Once the agent has completed the asks, and prepared the release, it should use `/sandbox` as it's means to locally first test the new package ahaed of deploying. Set-up a new virtual environment, enter into that virtual environment and then download the package.
+
+In the sandbox, it'll download the latest version locally, use `fai --version` to ensure that it is aligned with the current version.
+
+<u>Testing the new functionalities</u>
+
+Based on what was released, it'll make sure that the new functionality is running via testing that specific functionality as though a user is utilising the unrealised but updated version of `fai`.
+
+[add something about how to test]
+
+<u>Testing all functionalities</u>
+
+[something about testing e2e functionalities]
+
+<u>Testing the release</u>
+
+```
+cd /Users/kingtongchoo/Desktop/coding/fai/sandbox && rm -rf .venv && uv venv .venv && source .venv/bin/activate && uv pip install "git+ssh://git@github.com/wissenai/fai.git[all]"
+```
+
+<u>Once this is all done</u>
+
+Once this is all done, then it can be released
+
+**Manual Testing**
+
+Finally, once that is completed, we should have some .md file by which the human can review, and essentially first test any new functionalities that were baked into the given release. If there are issues, then create github issues [determine how to segment bugs, probably by functionality set?]
+
+If there are issues, then instruct the LLM to essentially pull the gh issues, and work on it one-by-one, where for each issue, the human should QA and make sure that things are working as expected.
+
+Unstructured dump
+
+- Simple checklists that are appending to of [existing] and [new] features and the associated releases. That way we're constantly QAing the full functionalities to make sure performance is as expected.
+- Naturally, as we have more functionalities and dependent functionalities, the list of tests that are required to ensure there are no breakages needs to exist
+
+Use commands to enforce that steps are included in the todos.
+
+**What does not change**
+
+- The more features we try to build out, the more time it will take. It'll just be much faster with LLMs. More features means more manual testing and ensuring things are built as expected.

@@ -1,0 +1,40 @@
+---
+title: "Tool Logic"
+---
+
+Overall
+
+- There are definitely company specific information (documents / financials) that is one segmentation
+- Think we should try to expose all of the API endpoints as raw as possible(?). That we we truly integrate once and then after we can transform it.
+- It's also because it's not 100% obvious that all tools must become providers or something
+- This neesd to be a process that we 'don't' have to place that much cognitive bandwidth and more on testing.
+
+Open Qs:
+
+- Do we want to do -\> 'OutputClass' so that we can utilise it? again?
+
+
+- Fiscal AI
+  - api details
+    - base url: https://api.fiscal.ai/
+  - apis
+    - list_companies(pageNumber, pageSize)
+    - fetch_company_profile(ticker, minCode, exchange, companyKey, cusip, isin, cik)
+    - fetch_company_income_statement_as_reported(ticker, minCode, exchange, companyKey, cusip, isin, cik, periodType, currency)
+    - fetch_company_balance_sheet_as_reported(ticker, minCode, exchange, companyKey, cusip, isin, cik, periodType, currency)
+    - fetch_company_cash_flow_statement_as_reported(ticker, minCode, exchange, companyKey, cusip, isin, cik, periodType, currency)
+    - fetch_company_income_statement_standardized(ticker, minCode, exchange, companyKey, cusip, isin, cik, periodType, currency)
+    - fetch_company_balance_sheet_as_standardized(ticker, minCode, exchange, companyKey, cusip, isin, cik, periodType, currency)
+    - fetch_company_cash_flow_statement_standardized(ticker, minCode, exchange, companyKey, cusip, isin, cik, periodType, currency)
+    - list_standardised_metrics(templateType, statementType)
+    - list_ratios
+    - fetch_company_ratios(ticker, minCode, exchange, companyKey, cusip, isin, cik, periodType, currency, include_diagnostics, ratioId)
+    - fetch_company_daily_ratios(ticker, minCode, exchange, companyKey, cusip, isin, cik, periodType, currency)
+    - fetch_company_shares_outstanding(ticker, minCode, exchange, companyKey, cusip, isin, cik)
+    - fetch_company_segments_and_kpis(ticker, minCode, exchange, companyKey, cusip, isin, cik, periodType, currency)
+    - fetch_company_adjusted_metrics(ticker, minCode, exchange, companyKey, cusip, isin, cik, periodType, currency)
+    - fetch_company_stock_splits(ticker, minCode, exchange, companyKey, cusip, isin, cik, periodType, currency)
+    - fetch_company_stock_prices(ticker, minCode, exchange, companyKey, cusip, isin, cik, startDate, endDate, latest)
+    - list_company_filings(ticker, minCode, exchange, companyKey, cusip, isin, cik)
+    - fetch_company_filings_page(filingId, pageNumber, ticker, minCode, exchange, companyKey, cusip, isin, cik)
+    - fetch_filing_pdf(ticker, minCode, exchange, companyKey, cusip, isin, cik)

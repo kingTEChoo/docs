@@ -1,0 +1,37 @@
+---
+title: "Overview"
+---
+
+
+- You can acccess / declare the tools from provider-\>method level directly
+- transform.py 
+
+every tool has a
+
+- `tool_name`
+- `tool_description`
+- `tool_provider`
+- `tool_category`
+- `tool_input_model`
+- `tool_output_model`
+
+categories
+
+- companies
+
+response
+
+The way tools are interfaced (need to be able to specify this better)
+
+- code
+- ...
+
+1. start from the provider
+2. then spec out the tools that would be helpful
+3. then after think about the i/o definitions and descriptions
+4. also think about whether there is extra handling we need and if that is sorted out by other tool provisions i.e. runtime processing or preprocessing
+4. and then think about categories for each tool
+
+There can be many tools from one `tool_provider` that sits within multiple categories. We can start mapping things out from the pov that there can be many tools. APIs will not come as a format by which it is usable by default.
+
+Maybe we need a tools explorer locally, not live

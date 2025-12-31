@@ -1,0 +1,84 @@
+---
+title: "Tools Problem"
+description: "These are the problems with tooling which can stem from LLM limits to data providers to systems-level"
+---
+
+We'll have access to the following data & tools from providers which will be a mix of data tools, search tools, and data tools.
+
+- [<u>https://docs.fiscal.ai/docs/introduction</u>](https://docs.fiscal.ai/docs/introduction)
+- [<u>https://docs.exa.ai/reference/search</u>](https://docs.exa.ai/reference/search)
+- [<u>https://docs.parallel.ai/home</u>](https://docs.parallel.ai/home)
+- [<u>https://docs.reducto.ai/api-reference/extract</u>](https://docs.reducto.ai/api-reference/extract)
+- [<u>https://developer.factset.com/api-catalog/factset-estimates-api#apiDefinition</u>](https://developer.factset.com/api-catalog/factset-estimates-api#apiDefinition)
+- [<u>https://sec-api.io/docs</u>](https://sec-api.io/docs)
+- [<u>https://massive.com/docs/rest/stocks/overview</u>](https://massive.com/docs/rest/stocks/overview)
+- [<u>https://developer.factset.com/api-catalog/streetaccount-news-api</u>](https://developer.factset.com/api-catalog/streetaccount-news-api)
+
+Providers
+
+- Fiscal AI
+- Exa
+- Parallel
+- Reducto
+- FactSet
+- SEC API (EDGAR)
+- Massive
+
+Targets (Data)
+
+- Company
+  - News
+  - Documents
+  - Financials
+    - Segments
+    - Estimates
+  - Regulatory Reports
+
+     
+
+tools
+
+- execute_code
+  - runs calculations...(?)
+- list_company_documents
+- list_company_filings
+- list_company_news
+- fetch_company_overview
+- fetch_company_adjust_metrics
+- fetch_company_kpis
+- fetch_stock_prices
+- fetch_sellside_estimates
+- fetch_company_business_segments
+- fetch_company_geographic_segments
+- fetch_balance_sheet_statement
+- fetch_income_statement_statement
+- fetch_cash_flow_statement_statement
+- read_pdf
+- read_transcript
+- read_html
+- search_web
+
+bn   
+
+type (str): data\
+targets: company | sector | sub_sector | ...\
+data_type: news | sellside_consenus | financials ... \
+provider (enum[str]): factset | quartr | sec | fiscal-ai | massive | parallel | exa\
+format (enum[str]): json | pdf | html | transcript
+
+- extract_pdf
+
+Considerations
+
+- **On vs Off Distribution:** LLMs (especially latest ones) are trained to be better and better at coding as such 'coding as the interface to action and information' is something it is 'natively better at'. Off distribution tasks is likely to be something it's not as good at.
+
+Essentially the are supposed to become some standardised set of tools / functions that are consistent and usable.
+
+We currently use [<u>https://pydantic.dev/</u>](https://pydantic.dev/) specifically pydantic-ai as our driver. And I'm also considering different 'interfaces' to tools e.g.
+
+- mcps
+- code executions + bash
+
+Basiclaly I want you to do some thinking around the different ways to approach releasing tools considering the below.
+
+\<notes\> every tool has a tool_name tool_description tool_provider tool_category tool_input_model tool_output_model The way tools are interfaced (need to be able to specify this better) code ... start from the provider then spec out the tools that would be helpful then after think about the i/o definitions and descriptions also think about whether there is extra handling we need and if that is sorted out by other tool provisions i.e. runtime processing or preprocessing and then think about categories for each tool There can be many tools from one tool_provider that sits within multiple categories. We can start mapping things out from the pov that there can be many tools. APIs will not come as a format by which it is usable by default. \<.notes\>
